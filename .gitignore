@@ -2,7 +2,6 @@
 /.idea
 /src/data
 /src/model/__pycache__
-/src/diego.mp4
-/src/piero.mp4
-/src/piero_test.mp4
+/src/data_test
 /src/modelEigenFace.xml
+/database/student_registration.db
