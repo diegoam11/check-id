@@ -11,7 +11,7 @@ class FaceRecognition:
         if not os.path.exists(self.person_name_path):
             os.makedirs(self.person_name_path)
 
-        self.cap = cv2.VideoCapture('diego.mp4')
+        self.cap = cv2.VideoCapture(self.person_name + '.mp4')
         self.face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
         self.count = 0
 
@@ -36,8 +36,7 @@ class FaceRecognition:
 
             cv2.imshow('frame', frame)
 
-            k = cv2.waitKey(1)
-            if k == 27 or self.count >= 300:
+            if cv2.waitKey(1) or self.count >= 300:
                 break
 
     def release_resources(self):
