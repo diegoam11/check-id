@@ -1,8 +1,8 @@
 import sqlite3
-from tables import *
+from .tables import *
 class Database:
-    def __init__(self, db_file):
-        self.db_file = db_file
+    def __init__(self):
+        self.db_file = 'database/student_registration.db'
         self.connection = None
 
     def connect(self):

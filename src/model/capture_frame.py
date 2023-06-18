@@ -2,11 +2,11 @@ import cv2
 import os
 import imutils
 
-class FaceRecognition:
-    def __init__(self, person_name, data_path):
+class CaptureFrame:
+    def __init__(self, person_name):
         self.person_name = person_name
-        self.data_path = data_path
-        self.person_name_path = os.path.join(data_path, person_name)
+        self.data_path = "C:/Users/diego/OneDrive/CICLO 5/Requiremend Engineering/check_id/src/data"
+        self.person_name_path = os.path.join(self.data_path, person_name)
 
         if not os.path.exists(self.person_name_path):
             os.makedirs(self.person_name_path)
