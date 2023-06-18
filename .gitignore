@@ -2,6 +2,7 @@
 /.idea
 /src/data
 /src/model/__pycache__
+/src/barcode/__pycache__
 /src/data_test
 /src/modelEigenFace.xml
 /database/student_registration.db
