@@ -4,7 +4,7 @@ import os
 
 class FaceRecognition:
     def __init__(self):
-        self.data_path = 'C:/Users/diego/OneDrive/CICLO 5/Requiremend Engineering/check_id/src/data'
+        self.data_path = 'data'
         self.model_path = 'modelEigenFace.xml'
         self.face_recognizer = cv2.face.EigenFaceRecognizer_create()
         self.faceClassifier = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')

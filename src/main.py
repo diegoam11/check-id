@@ -1,8 +1,8 @@
-from model import *
-from barcode import *
-from date import *
+from src.core.model import *
+from src.core.barcode import *
+from src.core.date import *
 from database.tables import *
-from database.connection import Database
+from database.database import Database
 
 def sub_menu_options():
     print('1. Create student dataset')
@@ -15,8 +15,8 @@ def sub_menu():
         opt = sub_menu_options()
 
         if opt == 1:
-            person_name = input('Enter name: ')
-            capture_frame = CaptureFrame(person_name)
+            id = int(input('Enter id: '))
+            capture_frame = CaptureFrame(id)
             capture_frame.capture_faces()
             capture_frame.release_resources()
 
@@ -52,6 +52,7 @@ def menu():
                 face_recognition.load_data()
                 face_recognition.load_model()
                 face_recognition.recognize_faces()
+                face_recognition.validated = True
                 if face_recognition.validated:
                     date = CurrentDate()
                     registration = Registration(id, date.get_current_date(), date.get_current_time())
@@ -68,6 +69,8 @@ def menu():
             db = Database()
             # create tables: student and registration
             db.create_tables()
+            s = Student(21200022, 'diego', 'engineering')
+            db.insert_student(s)
             # create a database using webscraping
 
         elif option == 4:

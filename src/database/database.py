@@ -1,5 +1,6 @@
 import sqlite3
 from .tables import *
+
 class Database:
     def __init__(self):
         self.db_file = 'database/student_registration.db'
@@ -25,10 +26,10 @@ class Database:
         ''')
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS registration (
-                id INTEGER PRIMARY KEY,
+                student_id INTEGER,
                 date TEXT,
                 entry_time TEXT,
-                exit_time TEXT
+                FOREIGN KEY (student_id) REFERENCES student(id)
             )
         ''')
         self.connection.commit()
@@ -48,9 +49,9 @@ class Database:
         self.connect()
         cursor = self.connection.cursor()
         cursor.execute('''
-            INSERT INTO registration (id, date, entry_time, exit_time)
-            VALUES (?, ?, ?, ?)
-        ''', (registration.id, registration.date, registration.entry_time, registration.exit_time))
+            INSERT INTO registration (student_id, date, entry_time)
+            VALUES (?, ?, ?)
+        ''', (registration.student_id, registration.date, registration.entry_time))
         self.connection.commit()
         self.disconnect()
 
@@ -81,6 +82,5 @@ class Database:
         row = cursor.fetchone()
         self.disconnect()
         if row:
-            return Registration(row[0], row[1], row[2], row[3])
+            return Registration(row[0], row[1], row[2])
         return None
-

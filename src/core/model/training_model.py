@@ -4,7 +4,7 @@ import numpy as np
 
 class FaceRecognitionTrainer:
     def __init__(self):
-        self.data_path = "C:/Users/diego/OneDrive/CICLO 5/Requiremend Engineering/check_id/src/data"
+        self.data_path = 'data'
         self.people_list = os.listdir(self.data_path)
         self.labels = []
         self.faces_data = []

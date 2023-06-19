@@ -3,15 +3,15 @@ import os
 import imutils
 
 class CaptureFrame:
-    def __init__(self, person_name):
-        self.person_name = person_name
-        self.data_path = "C:/Users/diego/OneDrive/CICLO 5/Requiremend Engineering/check_id/src/data"
-        self.person_name_path = os.path.join(self.data_path, person_name)
+    def __init__(self, id):
+        self.id = id
+        self.data_path = 'data'
+        self.id_path = os.path.join(self.data_path, str(self.id))
 
-        if not os.path.exists(self.person_name_path):
-            os.makedirs(self.person_name_path)
+        if not os.path.exists(self.id_path):
+            os.makedirs(self.id_path)
 
-        self.cap = cv2.VideoCapture(self.person_name + '.mp4')
+        self.cap = cv2.VideoCapture(0)
         self.face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
         self.count = 0
 
@@ -31,14 +31,13 @@ class CaptureFrame:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 face = aux_frame[y: y + h, x: x + w]
                 face = cv2.resize(face, (150, 150), interpolation=cv2.INTER_CUBIC)
-                cv2.imwrite(os.path.join(self.person_name_path, 'face_{}.jpg'.format(self.count)), face)
+                cv2.imwrite(os.path.join(str(self.id_path), 'face_{}.jpg'.format(self.count)), face)
                 self.count += 1
 
             cv2.imshow('frame', frame)
 
-            if cv2.waitKey(1) or self.count >= 300:
+            if cv2.waitKey(1) & 0xFF == ord('q') or self.count >= 300 :
                 break
-
     def release_resources(self):
         self.cap.release()
         cv2.destroyAllWindows()
