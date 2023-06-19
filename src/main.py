@@ -1,5 +1,6 @@
 from model import *
 from barcode import *
+from date import *
 from database.tables import *
 from database.connection import Database
 

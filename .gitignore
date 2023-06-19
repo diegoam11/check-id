@@ -4,3 +4,10 @@
 /src/data_test
 /src/modelEigenFace.xml
 /src/database/student_registration.db
+# For pychache
+/src/barcode/__pycache__
+/src/database/__pycache__
+/src/database/tables/__pycache__
+/src/date/__pycache__
+/src/model/__pycache__
+
