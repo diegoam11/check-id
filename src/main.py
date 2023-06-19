@@ -4,10 +4,10 @@ from database.tables import *
 from database.connection import Database
 
 def sub_menu_options():
-    print('1. Crear data set de estudiante')
-    print('2. Re entrenar modelo')
-    print('3. Regresar')
-    return int(input("Ingrese una opcion: "))
+    print('1. Create student dataset')
+    print('2. Retrain model')
+    print('3. Go back')
+    return int(input("Select option: "))
 
 def sub_menu():
     while True:
@@ -24,18 +24,18 @@ def sub_menu():
             face_trainer.train_model()
 
         elif opt == 3:
-            print('Regresando...')
+            print('Coming back...')
             break
 
         else:
-            print('Esta opción no existe, vuelva a intentarlo')
+            print('This option does not exit, try again.')
 
 def menu_options():
     print('::::::: checkID :::::::')
     print("1. Start")
-    print("2. Administrador | Re entrenar modelo")
-    print('3. Gestionar base de datos')
-    print("4. Salir")
+    print("2. Administrator | Retrain model")
+    print('3. Manage database')
+    print("4. Exit")
     return int(input("Select option: "))
 
 def menu():
@@ -51,8 +51,14 @@ def menu():
                 face_recognition.load_data()
                 face_recognition.load_model()
                 face_recognition.recognize_faces()
+                if face_recognition.validated:
+                    date = CurrentDate()
+                    registration = Registration(id, date.get_current_date(), date.get_current_time())
+                    db.insert_registration(registration)
+                else:
+                    print("The face does not match. ")
             else:
-                print('No perteneces a esta universidad')
+                print('You are not from this university.')
 
         elif option == 2:
             sub_menu()
@@ -62,17 +68,13 @@ def menu():
             # create tables: student and registration
             db.create_tables()
             # create a database using webscraping
-            student = Student(21200022, 'Diego', 'Engineering ')
-            db.insert_student(student)
-            registration = Registration(21200022, '2023-06-14', '09:00:00', '17:00:00')
-            db.insert_registration(registration)
 
         elif option == 4:
-            print("Saliendo del sistema...")
+            print("Exiting the system...")
             break
 
         else:
-            print('Esta opción no existe, vuelva a intentarlo')
+            print('This option does not exit, try again.')
 
 if __name__ == '__main__':
     menu()

@@ -8,6 +8,7 @@ class FaceRecognition:
         self.model_path = 'modelEigenFace.xml'
         self.face_recognizer = cv2.face.EigenFaceRecognizer_create()
         self.faceClassifier = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
+        self.validated = False
 
     def load_data(self):
         image_paths = os.listdir(self.data_path)
