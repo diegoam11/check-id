@@ -1,12 +1,13 @@
 from src.core.model import *
 from src.core.barcode import *
 from src.core.date import *
+from src.core.webscraping import *
 from database.tables import *
 from database.database import Database
 
 def sub_menu_options():
-    print('1. Create student dataset')
-    print('2. Retrain model')
+    print('1. Capture student photos')
+    print('2. Update model')
     print('3. Go back')
     return int(input("Select option: "))
 
@@ -15,7 +16,15 @@ def sub_menu():
         opt = sub_menu_options()
 
         if opt == 1:
-            id = int(input('Enter id: '))
+            barcode_detector = BarcodeDetector()
+            barcode_detector.detect_barcodes()
+            student_id = int(barcode_detector.get_id())
+            web_scraper = WebScraper(student_id)
+            web_scraper.initialize_driver()
+            student = web_scraper.scrape_student_data()
+            db = Database()
+            db.insert_student(student)
+            web_scraper.close_driver()
             capture_frame = CaptureFrame(id)
             capture_frame.capture_faces()
             capture_frame.release_resources()
@@ -34,9 +43,8 @@ def sub_menu():
 def menu_options():
     print('::::::: checkID :::::::')
     print("1. Start")
-    print("2. Administrator | Retrain model")
-    print('3. Manage database')
-    print("4. Exit")
+    print("2. Administrator options")
+    print("3. Exit")
     return int(input("Select option: "))
 
 def menu():
@@ -66,14 +74,6 @@ def menu():
             sub_menu()
 
         elif option == 3:
-            db = Database()
-            # create tables: student and registration
-            db.create_tables()
-            s = Student(21200022, 'diego', 'engineering')
-            db.insert_student(s)
-            # create a database using webscraping
-
-        elif option == 4:
             print("Exiting the system...")
             break
 
