@@ -11,5 +11,7 @@
 /src/core/webscraping/__pycache__
 /src/database/__pycache__
 /src/database/tables/__pycache__
+# chromedriver
+/src/chromedriver.exe
 
 
