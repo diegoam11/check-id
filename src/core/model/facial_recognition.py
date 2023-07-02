@@ -6,13 +6,10 @@ class FaceRecognition:
     def __init__(self):
         self.data_path = 'data'
         self.model_path = 'modelEigenFace.xml'
+        self.image_paths = os.listdir(self.data_path)
         self.face_recognizer = cv2.face.EigenFaceRecognizer_create()
         self.faceClassifier = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
         self.validated = False
-
-    def load_data(self):
-        image_paths = os.listdir(self.data_path)
-        print('imagePaths= ', image_paths)
 
     def load_model(self):
         self.face_recognizer.read(self.model_path)
@@ -35,8 +32,14 @@ class FaceRecognition:
                 face = cv2.resize(face, (150, 150), interpolation=cv2.INTER_CUBIC)
                 result = self.face_recognizer.predict(face)
 
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 cv2.putText(frame, '{}'.format(result), (x, y - 5), 1, 1.3, (255, 255, 0), 1, cv2.LINE_AA)
+                #
+                if result[1] < 5000:
+                    cv2.putText(frame, '{}'.format(self.image_paths[result[0]]), (x, y - 25), 2, 1.1, (0, 255, 0), 1, cv2.LINE_AA)
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                else:
+                    cv2.putText(frame, 'Unidentified', (x, y - 20), 2, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
             cv2.imshow('frame', frame)
 
@@ -45,5 +48,3 @@ class FaceRecognition:
 
         cap.release()
         cv2.destroyAllWindows()
-
-

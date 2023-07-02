@@ -36,7 +36,7 @@ class CaptureFrame:
 
             cv2.imshow('frame', frame)
 
-            if cv2.waitKey(1) & 0xFF == ord('q') or self.count >= 300 :
+            if cv2.waitKey(1) & 0xFF == ord('q') or self.count >= 800 :
                 break
     def release_resources(self):
         self.cap.release()

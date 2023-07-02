@@ -16,18 +16,39 @@ def sub_menu():
         opt = sub_menu_options()
 
         if opt == 1:
-            barcode_detector = BarcodeDetector()
-            barcode_detector.detect_barcodes()
-            student_id = int(barcode_detector.get_id())
-            web_scraper = WebScraper(student_id)
-            web_scraper.initialize_driver()
-            student = web_scraper.scrape_student_data()
-            db = Database()
-            db.insert_student(student)
-            web_scraper.close_driver()
-            capture_frame = CaptureFrame(id)
+            # test
+            student_id = int(input('id: '))
+            print('To take photos of your face, please look at the camera...')
+            capture_frame = CaptureFrame(student_id)
             capture_frame.capture_faces()
             capture_frame.release_resources()
+            print('Saved face shots!')
+            # test
+
+            '''
+            print('Please show your university ID...')
+            barcode_detector = BarcodeDetector()
+            barcode_detector.detect_barcodes()
+            student_id = barcode_detector.get_id()
+            db = Database()
+
+            if db.student_exists(student_id):
+                print('This process is for new students only...')
+            else:
+                web_scraper = WebScraper(student_id)
+                web_scraper.initialize_driver()
+                student = web_scraper.scrape_student_data()
+
+                db.insert_student(student)
+                web_scraper.close_driver()
+                print(student.name, ' added to student database!')
+
+                print('To take photos of your face, please look at the camera...')
+                capture_frame = CaptureFrame(student_id)
+                capture_frame.capture_faces()
+                capture_frame.release_resources()
+                print('Saved face shots!')
+            '''
 
         elif opt == 2:
             face_trainer = FaceRecognitionTrainer()
@@ -44,20 +65,27 @@ def menu_options():
     print('::::::: checkID :::::::')
     print("1. Start")
     print("2. Administrator options")
-    print("3. Exit")
+    print("3. Create database")
+    print("4. Exit")
     return int(input("Select option: "))
 
 def menu():
     while True:
         option = menu_options()
         if option == 1:
+            # test
+            face_recognition = FaceRecognition()
+            face_recognition.load_model()
+            face_recognition.recognize_faces()
+            # test
+
+            '''
             barcode_detector = BarcodeDetector()
             barcode_detector.detect_barcodes()
             id = int(barcode_detector.get_id())
             db = Database()
             if db.student_exists(id):
                 face_recognition = FaceRecognition()
-                face_recognition.load_data()
                 face_recognition.load_model()
                 face_recognition.recognize_faces()
                 face_recognition.validated = True
@@ -68,12 +96,21 @@ def menu():
                 else:
                     print("The face does not match. ")
             else:
-                print('You are not from this university.')
+                print('You are not from this university.') 
+            '''
 
         elif option == 2:
             sub_menu()
 
         elif option == 3:
+            db = Database()
+            db.create_tables()
+            piero = Student(21200021, 'PIERO BAYONA MORE', 'MEDICINA')
+            diego = Student(21200022, 'DIEGO ALVAREZ MORE', 'SOFTWARE')
+            db.insert_student(piero)
+            db.insert_student(diego)
+
+        elif option == 4:
             print("Exiting the system...")
             break
 
