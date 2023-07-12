@@ -11,7 +11,7 @@ class CaptureFrame:
         if not os.path.exists(self.id_path):
             os.makedirs(self.id_path)
 
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(1)
         self.face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
         self.count = 0
 
@@ -36,7 +36,7 @@ class CaptureFrame:
 
             cv2.imshow('frame', frame)
 
-            if cv2.waitKey(1) & 0xFF == ord('q') or self.count >= 800 :
+            if cv2.waitKey(1) & 0xFF == ord('q') or self.count >= 250:
                 break
     def release_resources(self):
         self.cap.release()

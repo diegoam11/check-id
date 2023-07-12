@@ -7,4 +7,5 @@ class CurrentDate:
 
     def get_current_time(self):
         current_time = datetime.datetime.now()
+        current_time = current_time.strftime("%H:%M")  # Formato HH:MM
         return current_time

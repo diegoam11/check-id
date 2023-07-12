@@ -19,11 +19,11 @@ class WebScraper:
 
     def scrape_student_data(self):
         self.driver.get(self.web_side)
-        time.sleep(1.5)
+        time.sleep(2)
 
         self.driver.execute_script(f"document.querySelector('#ctl00_ContentPlaceHolder1_txtUsuario').value='{self.student_id}';")
         self.driver.execute_script("document.querySelector('#ctl00_ContentPlaceHolder1_cmdConsultar').click();")
-        time.sleep(1.5)
+        time.sleep(2)
 
         faculty = unidecode(self.driver.execute_script("return document.querySelector('#ctl00_ContentPlaceHolder1_txtFacultad').value;"))
         if faculty != "":
