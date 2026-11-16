@@ -94,7 +94,7 @@ def menu():
             db.insert_student(student2)
 
         elif option == 4:
-            print('Saliendo del sistema...')
+            print('Saliendo del sistema... :(')
             break
 
         else:
